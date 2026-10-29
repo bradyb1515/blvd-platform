@@ -1,2 +1,2 @@
-# blvd-platform
+# BuyWheelChairVans-platform
 A modern online booking and business management platform
