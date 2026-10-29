@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BLVD Platform | Buy Wheel Chair Vans</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f6f8;
+      color: #202633;
+    }
+    header {
+      background: #172337;
+      color: white;
+      padding: 22px 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 { margin: 0; font-size: 24px; }
+    header span { color: #aebbd0; font-size: 13px; }
+    .container { padding: 35px 6%; }
+    .welcome { margin-bottom: 28px; }
+    .welcome h2 { margin-bottom: 8px; }
+    .welcome p { color: #697386; }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 18px;
+      margin-bottom: 28px;
+    }
+    .card, .panel {
+      background: white;
+      border: 1px solid #e5e8ee;
+      border-radius: 12px;
+      padding: 22px;
+    }
+    .card p { color: #697386; margin: 0 0 12px; }
+    .card h3 { font-size: 28px; margin: 0; }
+    .layout {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 20px;
+    }
+    .panel h3 { margin-top: 0; }
+    label { display: block; margin: 15px 0 7px; }
+    input, select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #d6dce5;
+      border-radius: 7px;
+      font-size: 15px;
+    }
+    button {
+      background: #253b5a;
+      color: white;
+      border: 0;
+      border-radius: 7px;
+      padding: 12px 17px;
+      cursor: pointer;
+      margin-top: 16px;
+    }
+    button:hover { background: #38577f; }
+    #message { color: #24764a; }
+    #appointments { padding-left: 20px; }
+    @media (max-width: 700px) {
+      .layout { grid-template-columns: 1fr; }
+      header { padding: 20px; }
+      .container { padding: 24px 18px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>BLVD Platform</h1>
+    <span>BUSINESS MANAGEMENT</span>
+  </header>
+
+  <main class="container">
+    <section class="welcome">
+      <h2>Your business dashboard</h2>
+      <p>Manage appointments and keep your business organized.</p>
+    </section>
+
+    <section class="stats">
+      <div class="card">
+        <p>Today's appointments</p>
+        <h3 id="count">0</h3>
+      </div>
+      <div class="card">
+        <p>Platform status</p>
+        <h3 style="font-size:22px">Getting started</h3>
+      </div>
+      <div class="card">
+        <p>Business tools</p>
+        <h3 style="font-size:22px">Dashboard</h3>
+      </div>
+    </section>
+
+    <section class="layout">
+      <div class="panel">
+        <h3>Book an appointment</h3>
+        <form id="bookingForm">
+          <label for="customer">Customer name</label>
+          <input id="customer" required placeholder="Enter customer name">
+
+          <label for="service">Service</label>
+          <select id="service" required>
+            <option value="">Choose a service</option>
+            <option>Consultation</option>
+            <option>Standard appointment</option>
+            <option>Premium appointment</option>
+          </select>
+
+          <label for="date">Appointment date</label>
+          <input id="date" type="date" required>
+
+          <label for="time">Appointment time</label>
+          <input id="time" type="time" required>
+
+          <button type="submit">Add appointment</button>
+          <p id="message" role="status"></p>
+        </form>
+      </div>
+
+      <div class="panel">
+        <h3>Upcoming appointments</h3>
+        <p id="empty">No appointments added yet.</p>
+        <ul id="appointments"></ul>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const form = document.getElementById('bookingForm');
+    const list = document.getElementById('appointments');
+    const empty = document.getElementById('empty');
+    const count = document.getElementById('count');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const name = document.getElementById('customer').value.trim();
+      const service = document.getElementById('service').value;
+      const date = document.getElementById('date').value;
+      const time = document.getElementById('time').value;
+
+      if (!name || !service || !date || !time) return;
+
+      const item = document.createElement('li');
+      item.textContent = `${name} — ${service} — ${date} at ${time}`;
+      list.appendChild(item);
+
+      count.textContent = list.children.length;
+      empty.hidden = true;
+      document.getElementById('message').textContent =
+        'Appointment added to this page.';
+      form.reset();
+    });
+  </script>
+</body>
+</html>
